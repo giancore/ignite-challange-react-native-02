@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "ignite-challange-react-native-02",
-    "slug": "ignite-challange-react-native-02",
+    "name": "ignite-challenge-react-native-02",
+    "slug": "ignite-challenge-react-native-02",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
