@@ -1,7 +1,6 @@
+import { ArrowUpRight } from 'phosphor-react-native';
 import Animated from 'react-native-reanimated';
 import styled, { css } from 'styled-components/native';
-
-import OpenImg from '@assets/open.svg';
 
 type Props = {
   isDiet: boolean;
@@ -23,7 +22,7 @@ export const PercentBox = styled(Animated.View)<Props>`
   `};
 `;
 
-export const Percent = styled.Text`
+export const Percent = styled(Animated.Text)`
   text-align: center;
   font-style: normal;
   font-weight: 700;
@@ -36,7 +35,7 @@ export const Percent = styled.Text`
   `};
 `;
 
-export const Label = styled.Text`
+export const Label = styled(Animated.Text)`
   text-align: center;
   font-style: normal;
   font-weight: 400;
@@ -49,7 +48,7 @@ export const Label = styled.Text`
   `};
 `;
 
-export const Open = styled(OpenImg)`
+export const Open = styled(ArrowUpRight)`
   position: absolute;
   top: 8px;
   right: 8px;

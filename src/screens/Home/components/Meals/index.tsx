@@ -1,5 +1,7 @@
 import { DefaultSectionT, SectionList, SectionListData, SectionListRenderItem } from 'react-native';
 
+import { useNavigation } from '@react-navigation/native';
+import { AppNavigatorRoutesProps } from '@routes/app.routes';
 import { Meal } from '@types';
 import { Plus } from 'phosphor-react-native';
 import { useTheme } from 'styled-components/native';
@@ -77,6 +79,8 @@ const data: Section[] = [
 
 export function Meals() {
   const { COLORS } = useTheme();
+  const { navigate } = useNavigation<AppNavigatorRoutesProps>();
+  const handleGoToNewMeal = () => navigate('newMeal');
 
   const renderItem: SectionListRenderItem<Meal> = ({ item }) => (
     <MealItem key={item.hour} meal={item} />
@@ -91,7 +95,13 @@ export function Meals() {
   return (
     <S.Container>
       <S.MealsLabel>Refeições</S.MealsLabel>
-      <Button type="PRIMARY" title="Nova refeição" icon={<Plus size={18} color={COLORS.WHITE} />} />
+
+      <Button
+        onPress={handleGoToNewMeal}
+        type="PRIMARY"
+        title="Nova refeição"
+        icon={<Plus size={18} color={COLORS.WHITE} />}
+      />
 
       <SectionList
         sections={data}

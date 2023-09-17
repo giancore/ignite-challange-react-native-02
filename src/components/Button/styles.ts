@@ -22,6 +22,7 @@ export const Container = styled(TouchableOpacity)<Props>`
     border-color: ${type === 'PRIMARY' ? theme.COLORS.GRAY_2 : theme.COLORS.GRAY_2};
   `};
 `;
+
 export const IconContainer = styled.View`
   padding-right: 12px;
 `;
