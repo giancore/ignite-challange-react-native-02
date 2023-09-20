@@ -27,7 +27,7 @@ module.exports = {
             group: 'internal',
           },
           {
-            pattern: '@routes',
+            pattern: '@routes/**',
             group: 'internal',
           },
           {
@@ -47,7 +47,15 @@ module.exports = {
             group: 'internal',
           },
           {
+            pattern: '@utils',
+            group: 'internal',
+          },
+          {
             pattern: '@hooks/**',
+            group: 'internal',
+          },
+          {
+            pattern: '@types',
             group: 'internal',
           },
         ],

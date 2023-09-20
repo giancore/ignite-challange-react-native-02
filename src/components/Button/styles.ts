@@ -12,7 +12,6 @@ export const Container = styled(TouchableOpacity)<Props>`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  width: 100%;
   padding: 16px 24px;
   border-radius: 6px;
   border: 1px solid;

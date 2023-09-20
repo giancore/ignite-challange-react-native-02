@@ -1,96 +1,46 @@
-import { DefaultSectionT, SectionList, SectionListData, SectionListRenderItem } from 'react-native';
+import { SectionList, SectionListData, SectionListRenderItem } from 'react-native';
 
 import { useNavigation } from '@react-navigation/native';
-import { AppNavigatorRoutesProps } from '@routes/app.routes';
-import { Meal } from '@types';
+import { format } from 'date-fns';
 import { Plus } from 'phosphor-react-native';
 import { useTheme } from 'styled-components/native';
 
 import { Button } from '@components/Button';
+import { Loading } from '@components/Loading';
+import { AppNavigatorRoutesProps } from '@routes/app.routes';
+import { Meal, MealSectionList } from '@types';
 
 import * as S from './styles';
 import { MealItem } from '../MealItem';
 
-interface Section {
-  title: string;
-  data: Meal[];
-}
+type Props = {
+  sections: MealSectionList[];
+  isLoading: boolean;
+};
 
-interface IHeader {
-  section: SectionListData<{ title: string }>;
-}
-
-const data: Section[] = [
-  {
-    title: '12.08.22',
-    data: [
-      { name: 'X-tudo', description: '', date: '12/08/2022', hour: '20:00', isDiet: false },
-      {
-        name: 'Whey protein com leite',
-        description: '',
-        date: '12/08/2022',
-        hour: '16:00',
-        isDiet: true,
-      },
-      {
-        name: 'Salada cesar com frango',
-        description: '',
-        date: '12/08/2022',
-        hour: '12:30',
-        isDiet: true,
-      },
-      {
-        name: 'Vitamina de banana com canela',
-        description: '',
-        date: '12/08/2022',
-        hour: '09:30',
-        isDiet: true,
-      },
-    ],
-  },
-  {
-    title: '14.08.22',
-    data: [
-      { name: 'X-tudo', description: '', date: '12/08/2022', hour: '20:00', isDiet: false },
-      {
-        name: 'Whey protein com leite',
-        description: '',
-        date: '12/08/2022',
-        hour: '16:00',
-        isDiet: true,
-      },
-      {
-        name: 'Salada cesar com frango',
-        description: '',
-        date: '12/08/2022',
-        hour: '12:30',
-        isDiet: true,
-      },
-      {
-        name: 'Vitamina de banana com canela',
-        description: '',
-        date: '12/08/2022',
-        hour: '09:30',
-        isDiet: true,
-      },
-    ],
-  },
-];
-
-export function Meals() {
+export function Meals({ isLoading, sections }: Props) {
   const { COLORS } = useTheme();
   const { navigate } = useNavigation<AppNavigatorRoutesProps>();
+
   const handleGoToNewMeal = () => navigate('newMeal');
 
+  const renderListEmptyComponent = () => {
+    return (
+      <S.ListEmptyContainer>
+        <S.MealsLabel>Não existem refeições cadastradas.</S.MealsLabel>
+      </S.ListEmptyContainer>
+    );
+  };
+
   const renderItem: SectionListRenderItem<Meal> = ({ item }) => (
-    <MealItem key={item.hour} meal={item} />
+    <MealItem key={item.id} meal={item} />
   );
 
   const renderSectionHeader = ({
     section,
   }: {
-    section: SectionListData<Meal, DefaultSectionT>;
-  }) => <S.Title> {section.title}</S.Title>;
+    section: SectionListData<Meal, MealSectionList>;
+  }) => <S.Title>{format(new Date(section.title), 'dd.MM.yyyy')}</S.Title>;
 
   return (
     <S.Container>
@@ -103,13 +53,19 @@ export function Meals() {
         icon={<Plus size={18} color={COLORS.WHITE} />}
       />
 
-      <SectionList
-        sections={data}
-        renderItem={renderItem}
-        renderSectionHeader={renderSectionHeader}
-        showsVerticalScrollIndicator={false}
-        fadingEdgeLength={200}
-      />
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <SectionList
+          sections={sections}
+          renderItem={renderItem}
+          renderSectionHeader={renderSectionHeader}
+          ListEmptyComponent={renderListEmptyComponent}
+          contentContainerStyle={{ flex: sections.length === 0 ? 1 : 0 }}
+          showsVerticalScrollIndicator={false}
+          fadingEdgeLength={200}
+        />
+      )}
     </S.Container>
   );
 }

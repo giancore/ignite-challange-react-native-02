@@ -5,9 +5,10 @@ import {
   NunitoSans_700Bold,
   useFonts,
 } from '@expo-google-fonts/nunito-sans';
-import { Routes } from '@routes/index';
 import { StatusBar } from 'expo-status-bar';
 import { ThemeProvider } from 'styled-components/native';
+
+import { Routes } from '@routes/index';
 
 import theme from './src/theme';
 

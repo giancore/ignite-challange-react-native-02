@@ -1,7 +1,8 @@
 import { useNavigation } from '@react-navigation/native';
+import { useTheme } from 'styled-components/native';
+
 import { AppNavigatorRoutesProps } from '@routes/app.routes';
 import { formatAsPercentage } from '@utils';
-import { useTheme } from 'styled-components/native';
 
 import * as S from './styles';
 
@@ -12,6 +13,7 @@ type Props = {
 export function Percent({ mealPercents }: Props) {
   const { COLORS } = useTheme();
   const { navigate } = useNavigation<AppNavigatorRoutesProps>();
+
   const handleGoToStatistics = () => navigate('statistics');
 
   return (

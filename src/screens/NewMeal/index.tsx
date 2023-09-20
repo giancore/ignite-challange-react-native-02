@@ -1,15 +1,20 @@
+import 'react-native-get-random-values';
 import { useState } from 'react';
 
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigation } from '@react-navigation/native';
-import { AppNavigatorRoutesProps } from '@routes/app.routes';
+import { parse } from 'date-fns';
 import { Controller, useForm } from 'react-hook-form';
 import { useTheme } from 'styled-components/native';
+import { v4 as uuidv4 } from 'uuid';
 import * as yup from 'yup';
 
 import { Button } from '@components/Button';
 import { Input, MaskInput } from '@components/Input';
 import { Select } from '@components/Select';
+import { AppNavigatorRoutesProps } from '@routes/app.routes';
+import { mealCreate } from '@storage/meal';
+import { Meal } from '@types';
 
 import * as S from './styles';
 
@@ -50,7 +55,25 @@ export function NewMeal() {
   });
 
   async function handleAddMeal(data: FormDataProps) {
-    console.log(data);
+    try {
+      const meal: Meal = {
+        id: uuidv4(),
+        description: data.description,
+        isDiet: data.isDiet,
+        name: data.name,
+        date: parse(`${data.date} ${data.hour}`, 'dd/MM/yyyy HH:mm', new Date()),
+      };
+
+      await mealCreate(meal);
+
+      if (data.isDiet) {
+        navigate('mealIsDiet');
+      } else {
+        navigate('mealIsNotDiet');
+      }
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   return (

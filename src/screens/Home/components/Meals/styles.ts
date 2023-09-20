@@ -9,6 +9,14 @@ export const Container = styled.View`
   `};
 `;
 
+export const ListEmptyContainer = styled.View`
+  flex: 1;
+  padding: 20px 0px;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid black;
+`;
+
 export const Title = styled.Text`
   font-style: normal;
   font-weight: 700;

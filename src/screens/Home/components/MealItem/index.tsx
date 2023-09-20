@@ -1,6 +1,7 @@
-import { Meal } from '@types';
+import { format } from 'date-fns';
 
 import Divider from '@assets/divider.svg';
+import { Meal } from '@types';
 
 import * as S from './styles';
 
@@ -9,12 +10,16 @@ type Props = {
 };
 
 export function MealItem({ meal }: Props) {
-  const { hour, name, isDiet } = meal;
+  const { date, name, isDiet } = meal;
+
+  function formatHour(date: Date) {
+    return format(date, 'HH:mm');
+  }
 
   return (
     <S.Container>
       <S.Content>
-        <S.Hour>{hour}</S.Hour>
+        <S.Hour>{formatHour(new Date(date))}</S.Hour>
         <Divider />
         <S.Name numberOfLines={1}>{name}</S.Name>
       </S.Content>

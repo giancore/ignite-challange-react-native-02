@@ -9,6 +9,8 @@ import { ArrowLeft } from 'phosphor-react-native';
 import { useTheme } from 'styled-components/native';
 
 import { Home } from '@screens/Home';
+import { MealIsDiet } from '@screens/MealIsDiet';
+import { MealIsNotDiet } from '@screens/MealIsNotDiet';
 import { NewMeal } from '@screens/NewMeal';
 import { Statistics } from '@screens/Statistics';
 
@@ -16,6 +18,8 @@ type AppRoutesType = {
   home: undefined;
   statistics: undefined;
   newMeal: undefined;
+  mealIsDiet: undefined;
+  mealIsNotDiet: undefined;
 };
 
 export type AppNavigatorRoutesProps = NativeStackNavigationProp<AppRoutesType>;
@@ -79,6 +83,8 @@ export function AppRoutes() {
           headerShadowVisible: false,
         }}
       />
+      <Screen name="mealIsDiet" component={MealIsDiet} />
+      <Screen name="mealIsNotDiet" component={MealIsNotDiet} />
     </Navigator>
   );
 }
