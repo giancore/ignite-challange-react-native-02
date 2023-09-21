@@ -1,18 +1,16 @@
 import 'react-native-get-random-values';
-import { useState } from 'react';
 
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useNavigation } from '@react-navigation/native';
-import { parse } from 'date-fns';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { format, parse } from 'date-fns';
 import { Controller, useForm } from 'react-hook-form';
-import { useTheme } from 'styled-components/native';
 import { v4 as uuidv4 } from 'uuid';
 import * as yup from 'yup';
 
 import { Button } from '@components/Button';
 import { Input, MaskInput } from '@components/Input';
 import { Select } from '@components/Select';
-import { AppNavigatorRoutesProps } from '@routes/app.routes';
+import { AppRoutesType } from '@routes/app.routes';
 import { mealCreate } from '@storage/meal';
 import { Meal } from '@types';
 
@@ -34,10 +32,10 @@ const mealSchema = yup.object({
   isDiet: yup.boolean().required('Informe se a refeição está dentro da dieta'),
 });
 
-export function NewMeal() {
-  const { COLORS } = useTheme();
-  const { navigate, goBack } = useNavigation<AppNavigatorRoutesProps>();
-  const [isDiet, setIsDiet] = useState<boolean>();
+type Props = NativeStackScreenProps<AppRoutesType, 'newMeal'>;
+
+export function NewMeal({ navigation, route }: Props) {
+  const { name, description, date, isDiet, id } = route?.params?.meal || {};
 
   const {
     control,
@@ -45,11 +43,11 @@ export function NewMeal() {
     formState: { errors },
   } = useForm<FormDataProps>({
     defaultValues: {
-      name: undefined,
-      description: undefined,
-      date: undefined,
-      hour: undefined,
-      isDiet: undefined,
+      name,
+      description,
+      date: date ? format(new Date(date), 'dd/MM/yyyy') : undefined,
+      hour: date ? format(new Date(date), 'HH:mm') : undefined,
+      isDiet,
     },
     resolver: yupResolver(mealSchema),
   });
@@ -57,7 +55,7 @@ export function NewMeal() {
   async function handleAddMeal(data: FormDataProps) {
     try {
       const meal: Meal = {
-        id: uuidv4(),
+        id: id ?? uuidv4(),
         description: data.description,
         isDiet: data.isDiet,
         name: data.name,
@@ -67,9 +65,9 @@ export function NewMeal() {
       await mealCreate(meal);
 
       if (data.isDiet) {
-        navigate('mealIsDiet');
+        navigation.navigate('mealIsDiet');
       } else {
-        navigate('mealIsNotDiet');
+        navigation.navigate('mealIsNotDiet');
       }
     } catch (error) {
       console.error(error);
@@ -167,7 +165,10 @@ export function NewMeal() {
         </S.InputContainer>
       </S.Content>
       <S.ButtonContainer>
-        <Button title="Cadastrar refeição" onPress={handleSubmit(handleAddMeal)} />
+        <Button
+          title={id ? 'Salvar alterações' : 'Cadastrar refeição'}
+          onPress={handleSubmit(handleAddMeal)}
+        />
       </S.ButtonContainer>
     </S.Container>
   );

@@ -9,7 +9,7 @@ type Props = ViewProps & {
   value: boolean | undefined;
 };
 
-export function Select({ onSelectIfIsDiet, errorMessage, ...rest }: Props) {
+export function Select({ onSelectIfIsDiet, errorMessage, value, ...rest }: Props) {
   const invalid = !!errorMessage;
 
   const [greenState, setGreenState] = useState<boolean>();
@@ -22,6 +22,13 @@ export function Select({ onSelectIfIsDiet, errorMessage, ...rest }: Props) {
 
     onSelectIfIsDiet(dietState);
   }, [greenState, redState]);
+
+  useEffect(() => {
+    if (value !== undefined) {
+      setGreenState(value);
+      setRedState(!value);
+    }
+  }, []);
 
   return (
     <S.Container {...rest}>

@@ -9,17 +9,20 @@ import { ArrowLeft } from 'phosphor-react-native';
 import { useTheme } from 'styled-components/native';
 
 import { Home } from '@screens/Home';
+import { MealDetail } from '@screens/MealDetail';
 import { MealIsDiet } from '@screens/MealIsDiet';
 import { MealIsNotDiet } from '@screens/MealIsNotDiet';
 import { NewMeal } from '@screens/NewMeal';
 import { Statistics } from '@screens/Statistics';
+import { Meal } from '@types';
 
-type AppRoutesType = {
+export type AppRoutesType = {
   home: undefined;
   statistics: undefined;
-  newMeal: undefined;
+  newMeal: undefined | { meal: Meal };
   mealIsDiet: undefined;
   mealIsNotDiet: undefined;
+  mealDetail: { meal: Meal };
 };
 
 export type AppNavigatorRoutesProps = NativeStackNavigationProp<AppRoutesType>;
@@ -63,10 +66,10 @@ export function AppRoutes() {
       <Screen
         name="newMeal"
         component={NewMeal}
-        options={{
+        options={({ route }) => ({
           statusBarColor: COLORS.GRAY_5,
           headerShown: true,
-          headerTitle: 'Nova refeição',
+          headerTitle: route.params?.meal.id ? 'Editar refeição' : 'Nova refeição',
           headerTitleAlign: 'center',
           headerLeft: (props) => (
             <Pressable onPress={goBack} {...props}>
@@ -81,10 +84,33 @@ export function AppRoutes() {
             backgroundColor: COLORS.GRAY_5,
           },
           headerShadowVisible: false,
-        }}
+        })}
       />
       <Screen name="mealIsDiet" component={MealIsDiet} />
       <Screen name="mealIsNotDiet" component={MealIsNotDiet} />
+      <Screen
+        name="mealDetail"
+        component={MealDetail}
+        options={({ route }) => ({
+          statusBarColor: route.params.meal.isDiet ? COLORS.GREEN_LIGHT : COLORS.RED_LIGHT,
+          headerShown: true,
+          headerTitle: 'Refeição',
+          headerTitleAlign: 'center',
+          headerLeft: (props) => (
+            <Pressable onPress={goBack} {...props}>
+              <ArrowLeft size={24} />
+            </Pressable>
+          ),
+          headerTitleStyle: {
+            fontFamily: FONT_FAMILY.BOLD,
+            fontSize: FONT_SIZE.LG,
+          },
+          headerStyle: {
+            backgroundColor: route.params.meal.isDiet ? COLORS.GREEN_LIGHT : COLORS.RED_LIGHT,
+          },
+          headerShadowVisible: false,
+        })}
+      />
     </Navigator>
   );
 }

@@ -1,14 +1,14 @@
-import { useNavigation } from '@react-navigation/native';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 import feedbackPositiveImg from '@assets/feedback-positive.png';
 import { Button } from '@components/Button';
-import { AppNavigatorRoutesProps } from '@routes/app.routes';
+import { AppRoutesType } from '@routes/app.routes';
 
 import * as S from './styles';
 
-export function MealIsDiet() {
-  const { navigate } = useNavigation<AppNavigatorRoutesProps>();
+type Props = NativeStackScreenProps<AppRoutesType, 'mealIsDiet'>;
 
+export function MealIsDiet({ navigation }: Props) {
   return (
     <S.Container>
       <S.Feedback>
@@ -23,7 +23,7 @@ export function MealIsDiet() {
       </S.ImageContainer>
 
       <S.ButtonContainer>
-        <Button title="Ir para a página inicial" onPress={() => navigate('home')} />
+        <Button title="Ir para a página inicial" onPress={() => navigation.navigate('home')} />
       </S.ButtonContainer>
     </S.Container>
   );

@@ -9,7 +9,13 @@ export async function mealCreate(meal: Meal) {
   try {
     const meals = await mealsGetAll();
 
-    const storage = JSON.stringify([...meals, meal]);
+    const findIndex = meals.findIndex((mealInStorage) => mealInStorage.id === meal.id);
+
+    if (findIndex) {
+      meals[findIndex] = meal;
+    }
+
+    const storage = findIndex ? JSON.stringify([...meals]) : JSON.stringify([...meals, meal]);
     await AsyncStorage.setItem(MEALS_COLLECTION, storage);
   } catch (error) {
     throw error;

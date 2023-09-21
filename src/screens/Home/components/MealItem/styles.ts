@@ -4,7 +4,7 @@ type StatusProps = {
   isDiet: boolean;
 };
 
-export const Container = styled.View`
+export const Container = styled.TouchableOpacity`
   padding: 12px 14px;
   margin-top: 20px;
   flex-direction: row;
