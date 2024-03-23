@@ -21,10 +21,16 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FAFAFA"
-      }
+      },
+      "package": "com.giancore.dailydiet"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "16c9934f-2dd0-4d54-bec6-810deb624f63"
+      }
     }
   }
 }

@@ -14,11 +14,13 @@ export function Percent({ mealPercents }: Props) {
   const { COLORS } = useTheme();
   const { navigate } = useNavigation<AppNavigatorRoutesProps>();
 
+  const isDiet = mealPercents > 50;
+
   const handleGoToStatistics = () => navigate('statistics');
 
   return (
     <S.Pressable onPress={handleGoToStatistics}>
-      <S.PercentBox isDiet={true} sharedTransitionTag="percent-box-tag">
+      <S.PercentBox isDiet={isDiet} sharedTransitionTag="percent-box-tag">
         <S.Open size={32} color={COLORS.GREEN_DARK} />
         <S.Percent sharedTransitionTag="percent-tag">{formatAsPercentage(mealPercents)}</S.Percent>
         <S.Label sharedTransitionTag="percent-label-tag">das refeições dentro da dieta</S.Label>
