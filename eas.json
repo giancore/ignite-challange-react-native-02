@@ -5,11 +5,14 @@
   "build": {
     "preview": {
       "android": {
-        "distribution": "internal"
+        "distribution": "internal",
+        "image" : "latest"
       }
     },
     "production": {
-      
+      "android": {
+        "image" : "latest"
+      }
     }
   }
 }
