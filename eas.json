@@ -1,18 +1,31 @@
 {
   "cli": {
-    "version": ">= 7.6.0"
+    "version": ">= 7.6.0",
+    "appVersionSource": "remote"
   },
   "build": {
     "preview": {
       "android": {
         "distribution": "internal",
         "image" : "latest"
-      }
+      },
+      "ios": {
+        "simulator": true,
+        "autoIncrement": "buildNumber"
+      },
+      "channel": "preview"
     },
     "production": {
+      "autoIncrement": true,
       "android": {
-        "image" : "latest"
-      }
+        "image": "latest",
+        "autoIncrement": "versionCode"
+      },
+      "ios": {
+        "image": "latest",
+        "autoIncrement": "buildNumber"
+      },
+      "channel": "production"
     }
   }
 }
