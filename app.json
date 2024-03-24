@@ -15,7 +15,8 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": false
+      "supportsTablet": false,
+      "bundleIdentifier": "com.giancore.dailydiet"
     },
     "android": {
       "adaptiveIcon": {
@@ -31,6 +32,12 @@
       "eas": {
         "projectId": "16c9934f-2dd0-4d54-bec6-810deb624f63"
       }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/16c9934f-2dd0-4d54-bec6-810deb624f63"
     }
   }
 }
