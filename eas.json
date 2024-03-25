@@ -12,8 +12,7 @@
       "ios": {
         "simulator": true,
         "autoIncrement": "buildNumber"
-      },
-      "channel": "preview"
+      }
     },
     "production": {
       "autoIncrement": true,
@@ -24,8 +23,7 @@
       "ios": {
         "image": "latest",
         "autoIncrement": "buildNumber"
-      },
-      "channel": "production"
+      }
     }
   }
 }
