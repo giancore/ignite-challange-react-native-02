@@ -7,7 +7,7 @@
     "preview": {
       "android": {
         "distribution": "internal",
-        "image" : "latest"
+        "image": "latest"
       },
       "ios": {
         "simulator": true,
